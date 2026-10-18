@@ -1,0 +1,28 @@
+{
+  "name": "duck-run-client",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "preview": "vite preview",
+    "character": "vite --open /character-preview.html"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "qrcode-generator": "^1.4.4",
+    "three": "0.169.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.169.0",
+    "typescript": "5.6.3",
+    "vite": "7.3.6",
+    "vitest": "3.2.7"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}

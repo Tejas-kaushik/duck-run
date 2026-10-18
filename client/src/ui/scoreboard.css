@@ -1,0 +1,69 @@
+/* Live scoreboard (Mayank). Uses the shared colours from ui.css, so Vansh's restyle carries over. */
+.scoreboard {
+  position: absolute;
+  top: 80px;
+  right: 12px;
+  width: min(260px, calc(100vw - 24px));
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(29, 36, 51, 0.55);
+  color: #fff;
+  font-size: 14px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.scoreboard-title {
+  margin-bottom: 4px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.scoreboard ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scoreboard .row {
+  display: flex;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.scoreboard .rank {
+  width: 1.5em;
+  text-align: right;
+  opacity: 0.8;
+}
+
+.scoreboard .name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scoreboard .status {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.scoreboard .me .name {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.scoreboard .finished .status {
+  color: var(--good);
+}
+
+.scoreboard .failed .status {
+  color: var(--bad);
+}
+
+.scoreboard .offline {
+  opacity: 0.5;
+}

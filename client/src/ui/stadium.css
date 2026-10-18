@@ -1,0 +1,499 @@
+/* Big-screen mode (stadium.ts): made for a projector, so big, bold and readable from the back. */
+
+.stadium {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 10px;
+  padding: 16px 22px 14px;
+  box-sizing: border-box;
+  background: radial-gradient(ellipse at 50% 0%, #2f6a3a 0%, #173a24 60%, #0d2316 100%);
+  color: #fff;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.st-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.st-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.st-title strong {
+  font-size: clamp(20px, 2.4vw, 34px);
+  letter-spacing: 1px;
+  color: #ffd23f;
+}
+
+.st-title span {
+  font-size: 15px;
+  opacity: 0.8;
+  letter-spacing: 3px;
+}
+
+.st-clock {
+  margin-left: auto;
+  font-size: clamp(28px, 3.6vw, 52px);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.st-join {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 18px;
+  font-size: 13px;
+  max-width: 220px;
+}
+
+.st-qr {
+  width: 84px;
+  flex: none;
+  padding: 4px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.st-qr svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* --- The track ------------------------------------------------------------------------------ */
+
+.st-track {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  --who: clamp(150px, 16vw, 230px);
+  --pts: 110px;
+}
+
+.st-sections {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 var(--pts) 6px var(--who);
+  font-size: clamp(12px, 1.2vw, 17px);
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.st-lanes {
+  display: grid;
+  /* As many rows as racers, sharing the height, but never taller than ~100px: a few racers sit centred. */
+  grid-template-rows: repeat(var(--lanes, 1), minmax(0, 1fr));
+  max-height: calc(var(--lanes, 1) * 100px);
+  align-self: center;
+  min-height: 0;
+  gap: 6px;
+}
+
+.st-lane {
+  display: grid;
+  grid-template-columns: var(--who) 1fr var(--pts);
+  align-items: center;
+  min-height: 0;
+  max-height: 92px;
+  transition: opacity 0.4s;
+}
+
+.st-who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding-right: 10px;
+}
+
+.st-who > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.st-place {
+  width: 30px;
+  flex: none;
+  text-align: center;
+  font-size: clamp(16px, 1.8vw, 26px);
+  font-weight: 900;
+}
+
+.st-name {
+  font-size: clamp(15px, 1.6vw, 24px);
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.st-status {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.st-score {
+  text-align: right;
+  font-size: clamp(16px, 1.8vw, 26px);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Four sections painted along the road: mud, pond, mud, the Don's arena. */
+.st-road {
+  position: relative;
+  height: 100%;
+  min-height: 26px;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    #8a5d36 0 25%,
+    #2f8fc0 25% 50%,
+    #8a5d36 50% 75%,
+    #5a2430 75% 100%
+  );
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.st-road::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: repeating-linear-gradient(90deg, transparent 0 24.6%, rgba(255, 255, 255, 0.35) 24.6% 25%);
+  pointer-events: none;
+}
+
+.st-flag {
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+/* The duck: slides along the road with its progress. */
+.st-token {
+  position: absolute;
+  top: 50%;
+  --size: clamp(40px, 4.6vw, 66px);
+  left: calc(var(--pos, 0) * (100% - var(--size)));
+  width: var(--size);
+  height: auto;
+  transform: translateY(-62%);
+  transition: left 0.6s linear;
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.35));
+}
+
+.st-token svg {
+  display: block;
+  width: 100%;
+}
+
+.st-lane.running .st-token svg {
+  animation: st-waddle 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes st-waddle {
+  to {
+    transform: translateY(-4px) rotate(4deg);
+  }
+}
+
+.st-lane.leader .st-name {
+  color: #ffd23f;
+}
+
+.st-lane.failed .st-token,
+.st-lane.left .st-token,
+.st-lane.offline .st-token {
+  filter: grayscale(1) opacity(0.55);
+}
+
+.st-lane.failed .st-score,
+.st-lane.left {
+  opacity: 0.6;
+}
+
+.st-lane.finished .st-token {
+  filter: drop-shadow(0 0 8px #ffd23f);
+}
+
+.st-lane.waiting {
+  opacity: 0.7;
+}
+
+/* --- Commentary ------------------------------------------------------------------------------ */
+
+.st-ticker {
+  min-height: 70px;
+  padding: 8px 14px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.st-ticker p {
+  margin: 2px 0;
+  font-size: clamp(13px, 1.2vw, 17px);
+  opacity: 0.65;
+}
+
+.st-ticker p.new {
+  font-size: clamp(18px, 2vw, 30px);
+  font-weight: 900;
+  opacity: 1;
+  animation: st-pop 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes st-pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+}
+
+.st-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.st-end,
+.pd-back {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+}
+
+.st-end {
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 13px;
+}
+
+/* 3-2-1-GO over the track. */
+.st-count {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: min(40vh, 300px);
+  font-weight: 900;
+  color: #ffd23f;
+  text-shadow: 0 10px 0 #5b3a1a, 0 20px 40px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.st-count.on {
+  display: flex;
+}
+
+.st-count.go {
+  color: #7be37b;
+}
+
+/* --- Podium ------------------------------------------------------------------------------------ */
+
+.st-podium {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  background: radial-gradient(ellipse at 50% 30%, #285a32, #0a1e12);
+  overflow: hidden;
+  animation: st-fade 0.5s both;
+}
+
+@keyframes st-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.st-podium h1 {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 72px);
+  color: #ffd23f;
+  text-shadow: 0 5px 0 #5b3a1a;
+  animation: st-pop 0.6s 0.2s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+
+.pd-stage {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(10px, 2vw, 28px);
+}
+
+.pd-spot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: clamp(120px, 15vw, 210px);
+  animation: st-rise 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+.pd-spot.p1 {
+  animation-delay: 0.9s;
+}
+
+.pd-spot.p2 {
+  animation-delay: 0.5s;
+}
+
+.pd-spot.p3 {
+  animation-delay: 0.2s;
+}
+
+@keyframes st-rise {
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+}
+
+.pd-duck {
+  width: 62%;
+}
+
+.pd-duck svg {
+  display: block;
+  width: 100%;
+}
+
+.pd-spot.p1 .pd-duck {
+  width: 78%;
+  animation: st-waddle 0.5s ease-in-out infinite alternate;
+}
+
+.pd-name {
+  font-size: clamp(16px, 1.8vw, 26px);
+  font-weight: 900;
+  text-align: center;
+}
+
+.pd-score {
+  font-size: 15px;
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+
+.pd-block {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10px;
+  border-radius: 12px 12px 0 0;
+  font-size: clamp(30px, 3.6vw, 52px);
+  background: linear-gradient(#ffe27a, #e0a92b);
+  box-shadow: inset 0 -8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.pd-spot.p1 .pd-block {
+  height: clamp(110px, 18vh, 170px);
+}
+
+.pd-spot.p2 .pd-block {
+  height: clamp(80px, 12vh, 120px);
+  background: linear-gradient(#f1f3f6, #b9c0cb);
+}
+
+.pd-spot.p3 .pd-block {
+  height: clamp(60px, 9vh, 90px);
+  background: linear-gradient(#f2c49b, #c47e44);
+}
+
+.pd-rest {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  max-width: 900px;
+  font-size: 15px;
+}
+
+.pd-rest li {
+  display: flex;
+  gap: 8px;
+  opacity: 0.85;
+}
+
+.pd-roast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: st-fade 0.5s 1.6s both;
+}
+
+.pd-don {
+  width: 70px;
+}
+
+.pd-don svg {
+  display: block;
+  width: 100%;
+}
+
+.pd-bubble {
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 16px;
+  background: #fff;
+  color: #1d2433;
+  font-weight: bold;
+  font-size: clamp(14px, 1.4vw, 20px);
+}
+
+.pd-back {
+  margin-top: 6px;
+  padding: 14px 26px;
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  background: linear-gradient(#46c7ff, #1e9be0);
+  box-shadow: 0 6px 0 #1272a8;
+}
+
+.pd-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pd-confetti i {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 16px;
+  border-radius: 2px;
+  animation: st-fall 3.2s linear infinite;
+}
+
+@keyframes st-fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bill preview</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #e9eef5; font-family: Arial, sans-serif; overflow: hidden; }
+    #ui { position: absolute; top: 12px; left: 12px; display: flex; flex-wrap: wrap; gap: 6px; max-width: 560px; }
+    #ui button { padding: 6px 10px; border: 1px solid #889; border-radius: 6px; background: #fff; cursor: pointer; }
+    #ui button.on { background: #2b3a67; color: #fff; }
+    #help { position: absolute; bottom: 12px; left: 12px; color: #333; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div id="ui"></div>
+  <div id="help">Left: Bill. Right: Bill as the ghost. Drag to orbit, scroll to zoom.</div>
+  <script type="module" src="/src/dev/character-preview.ts"></script>
+</body>
+</html>

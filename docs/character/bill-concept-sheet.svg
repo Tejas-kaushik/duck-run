@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1360" height="1160" viewBox="0 0 680 580" role="img">
+  <title>Bill the duck: concept sheet</title>
+  <desc>Bill the duck with callouts for each part of his look.</desc>
+  <rect x="0" y="0" width="680" height="580" fill="#ffffff"/>
+  <text x="40" y="36" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#222222">Bill the duck</text>
+  <text x="40" y="54" font-family="Arial, sans-serif" font-size="12" fill="#666666">Suited up, lazy, and terrible with money</text>
+  <image x="220" y="64" width="270" height="500" href="bill.svg" xlink:href="bill.svg"/>
+  <g stroke="#9a9a9a" stroke-width="0.8" stroke-dasharray="3 3">
+    <line x1="206" y1="100" x2="292" y2="112"/>
+    <line x1="206" y1="144" x2="310" y2="142"/>
+    <line x1="206" y1="320" x2="334" y2="322"/>
+    <line x1="206" y1="378" x2="258" y2="380"/>
+    <line x1="206" y1="450" x2="250" y2="440"/>
+    <line x1="206" y1="518" x2="272" y2="520"/>
+    <line x1="510" y1="92" x2="368" y2="95"/>
+    <line x1="510" y1="160" x2="376" y2="162"/>
+    <line x1="510" y1="268" x2="482" y2="272"/>
+    <line x1="510" y1="384" x2="356" y2="384"/>
+    <line x1="510" y1="468" x2="432" y2="470"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="12" fill="#555555">
+    <text x="200" y="104" text-anchor="end">Flat cap, always wonky</text>
+    <text x="200" y="148" text-anchor="end">Half-asleep eyes</text>
+    <text x="200" y="324" text-anchor="end">Tie barely hanging on</text>
+    <text x="200" y="382" text-anchor="end">Wing stuffed in pocket</text>
+    <text x="200" y="454" text-anchor="end">Cash falling out</text>
+    <text x="200" y="522" text-anchor="end">Untied, mismatched boots</text>
+    <text x="516" y="96">Sunglasses indoors</text>
+    <text x="516" y="164">Toothpick</text>
+    <text x="516" y="272">The £7 latte</text>
+    <text x="516" y="388">Buttoned wrong</text>
+    <text x="516" y="472">Receipt of shame</text>
+  </g>
+</svg>

@@ -1,0 +1,1039 @@
+/* Shared overlay styles. Colours live here as variables so Vansh can restyle everything in one place. */
+:root {
+  --ink: #1d2433;
+  --paper: #fffaf0;
+  --accent: #f39c32; /* Bill's beak */
+  --good: #37d67a;
+  --bad: #e5484d;
+  --panel: rgba(255, 250, 240, 0.92);
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #9fd8ff;
+  color: var(--ink);
+}
+
+/* Phones: touches may scroll (the pond lobby) but never zoom. iPhone also needs ui/zoomLock.ts. */
+html {
+  touch-action: pan-x pan-y;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#game,
+#game canvas {
+  touch-action: none;
+}
+
+/* No text selection or long-press menu popping up while tapping the game. */
+#ui {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+#ui input {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+#game canvas {
+  display: block;
+}
+
+#ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+#ui .panel,
+#ui button,
+#ui input {
+  pointer-events: auto;
+}
+
+.panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 300px;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+  padding: 24px 28px;
+  border-radius: 16px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.panel h1 {
+  margin: 0 0 4px;
+  font-size: 40px;
+}
+
+.panel p {
+  margin: 6px 0 14px;
+}
+
+.panel input {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 8px 0 14px;
+  padding: 10px 12px;
+  border: 2px solid #c9c2b0;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.panel button {
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.panel .muted {
+  color: #6b6455;
+  font-size: 13px;
+}
+
+.panel button {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.panel button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.panel button.secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid #c9c2b0;
+}
+
+.panel button.small {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.panel .row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.panel .row input {
+  flex: 1;
+  margin: 8px 0;
+}
+
+.panel .row button {
+  width: auto;
+  flex: 0 0 auto;
+}
+
+.panel .code-input {
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.panel .room-code {
+  font-size: 56px;
+  font-weight: bold;
+  letter-spacing: 12px;
+  color: var(--accent);
+}
+
+.panel .players {
+  list-style: none;
+  margin: 8px 0 12px;
+  padding: 0;
+  text-align: left;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.panel .players li {
+  padding: 6px 10px;
+  border-bottom: 1px solid #e6dfcf;
+}
+
+.panel .error {
+  color: var(--bad);
+  min-height: 1em;
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.panel .error:empty {
+  display: none;
+}
+
+.panel .note {
+  color: #6b6455;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.countdown {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  font-size: 140px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 6px 0 var(--accent), 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.hud {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 64px; /* clear of the sound button */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hud .stage {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* "+5,000" beside the score when a breadcrumb is picked up (hud.ts); to its left, so it never
+   lands on a room's live board below. */
+.hud .score-box {
+  position: relative;
+}
+
+.hud .score-pop {
+  position: absolute;
+  right: calc(100% + 10px);
+  bottom: 0;
+  color: #ffd98a;
+  font-size: 22px;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: score-pop 0.9s ease-out forwards;
+}
+
+@keyframes score-pop {
+  from { transform: translateY(8px) scale(0.6); opacity: 0; }
+  20% { transform: translateY(0) scale(1.15); opacity: 1; }
+  to { transform: translateY(-12px) scale(1); opacity: 0; }
+}
+
+.hud .boss {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  width: min(420px, 70vw);
+  transform: translateX(-50%);
+}
+
+/* Phones: the HUD's left column (hearts, coins, stage) runs down to ~128px, so the boss bar goes below it,
+   and a room's live scoreboard below that. */
+@media (max-width: 600px) {
+  .hud .boss {
+    top: 132px;
+    left: 4px; /* the HUD box starts 12px in, so this is 16px from the screen edge */
+    width: calc(100vw - 32px);
+    transform: none;
+  }
+  /* A room's live board: small, tucked into the top-right corner under the timer and score, and only
+     the top 3 plus you, so it never covers the road. (#ui > beats scoreboard.css, which loads later.) */
+  #ui > .scoreboard {
+    top: 66px;
+    right: 8px;
+    width: min(172px, 46vw);
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+  }
+
+  #ui > .scoreboard .scoreboard-title {
+    margin-bottom: 1px;
+    font-size: 9px;
+  }
+
+  #ui > .scoreboard .row {
+    gap: 5px;
+    padding: 1px 0;
+  }
+
+  #ui > .scoreboard .row:nth-child(n + 4):not(.me) {
+    display: none;
+  }
+
+  /* In a room race the boss bar goes below that board. */
+  #ui:has(> .scoreboard) .hud .boss {
+    top: 160px;
+  }
+}
+
+.hud .boss-bar {
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.hud .boss-fill {
+  height: 100%;
+  background: var(--bad);
+  transition: width 0.2s;
+}
+
+/* Transition fades (to/from the sea, the surface flash) */
+.fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Full-screen flash on a hit (red edges) or the heart (pink). Restarted by toggling the class. */
+.screen-flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.screen-flash.hit {
+  background: radial-gradient(ellipse at center, rgba(229, 72, 77, 0) 45%, rgba(229, 72, 77, 0.6) 100%);
+  animation: screen-flash 0.4s ease-out;
+}
+
+.screen-flash.heal {
+  background: radial-gradient(ellipse at center, rgba(255, 79, 139, 0) 40%, rgba(255, 79, 139, 0.45) 100%);
+  animation: screen-flash 0.6s ease-out;
+}
+
+@keyframes screen-flash {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen-flash.hit,
+  .screen-flash.heal {
+    animation-duration: 0.25s;
+    filter: opacity(0.5);
+  }
+}
+
+/* Boss reload prompt: Ready → Aim → FIRE! (green) */
+.reaction {
+  position: absolute;
+  left: 50%;
+  top: 52%; /* between the Don and Bill, so it never hides the laser or his face */
+  transform: translate(-50%, -50%);
+  padding: 10px 28px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 56px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.reaction.fire {
+  background: var(--good);
+  font-size: 84px;
+}
+
+.reaction.good,
+.reaction.bad {
+  font-size: 26px;
+}
+
+.reaction.good {
+  background: rgba(255, 62, 165, 0.75);
+}
+
+.reaction.bad {
+  background: rgba(229, 72, 77, 0.8);
+}
+
+.hud .boss-name {
+  margin-bottom: 4px;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.hud .boss-name span {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.hud .oxygen.low {
+  animation: oxygen-low 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes oxygen-low {
+  to {
+    opacity: 0.35;
+  }
+}
+
+.keys {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.keys:empty {
+  display: none;
+}
+
+/* Big call-outs during a run (power-ups, the dog) */
+.toast {
+  position: absolute;
+  left: 50%;
+  top: 64%; /* below the action, so it never covers Bill or the boss's face */
+  transform: translateX(-50%);
+  padding: 10px 22px;
+  border-radius: 14px;
+  background: rgba(20, 28, 40, 0.72);
+  color: #fff;
+  font-size: clamp(18px, 6vw, 30px);
+  font-weight: bold;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: var(--shadow);
+  animation: toast-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.toast.good {
+  background: rgba(30, 150, 90, 0.85);
+}
+
+.toast.bad {
+  background: rgba(200, 60, 60, 0.85);
+}
+
+.toast.leaving {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-12px);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.6);
+  }
+}
+
+/* Speed lines while boosted */
+.speed-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-conic-gradient(from 0deg at 50% 45%, rgba(255, 255, 255, 0.16) 0deg 1.2deg, transparent 1.2deg 9deg);
+  mask-image: radial-gradient(circle at 50% 45%, transparent 30%, black 75%);
+  -webkit-mask-image: radial-gradient(circle at 50% 45%, transparent 30%, black 75%);
+  animation: speed-lines 0.25s linear infinite;
+}
+
+@keyframes speed-lines {
+  to {
+    transform: rotate(3deg) scale(1.03);
+  }
+}
+
+/* Swim: coins and the power-up track (20 shield, 50 boost, 100 laser) */
+.hud .coins {
+  font-size: 22px;
+}
+
+.hud .power {
+  font-size: 14px;
+  color: #ffe680;
+}
+
+.coin-track {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: min(360px, 60vw);
+  transform: translateX(-50%);
+  padding-top: 26px;
+}
+
+.coin-bar {
+  height: 12px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.coin-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #ffd23f, #ffb000);
+  box-shadow: 0 0 10px rgba(255, 200, 60, 0.8);
+  transition: width 0.15s;
+}
+
+.coin-mark {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  text-align: center;
+  line-height: 1;
+  opacity: 0.55;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.coin-mark span {
+  display: block;
+  font-size: 18px;
+}
+
+.coin-mark small {
+  font-size: 10px;
+}
+
+.coin-mark.reached {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.25);
+}
+
+.panel .volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.panel .volume input {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: auto;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* Story intro (Vansh): a short animated film before the run. Shots are animated from intro.ts with
+   Web Animations on transform and opacity only, so they stay smooth. */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+  color: #111;
+  cursor: pointer;
+  pointer-events: auto;
+  animation: intro-in 0.3s ease-out;
+}
+
+.intro.closing { animation: intro-out 0.45s ease-in forwards; }
+
+.film {
+  position: relative;
+  overflow: hidden;
+  width: min(100vw, calc(100vh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  background: #111;
+}
+
+.shot { position: absolute; inset: 0; }
+.shot-stage { position: absolute; inset: 0; overflow: hidden; }
+
+.shot-cam {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.shot-cam svg { display: block; width: 100%; height: 100%; }
+.shot-cam g[class^='a-'] { transform-box: fill-box; transform-origin: center; }
+.shot-cam g.a-hook { transform-origin: top center; }
+/* The Don topples over his feet; his flying hat must not move the pivot. */
+.shot-cam g.a-topple { transform-box: view-box; transform-origin: 215px 196px; }
+
+.shot .subtitle,
+.shot .bubble,
+.shot .fx {
+  position: absolute;
+  will-change: transform, opacity;
+}
+
+.shot .subtitle {
+  max-width: 60%;
+  padding: 8px 14px;
+  border: 3px solid #111;
+  background: #ffe066;
+  box-shadow: 4px 4px 0 #111;
+  font: 800 clamp(13px, 2.1vw, 22px)/1.25 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+  text-transform: uppercase;
+}
+
+.shot .subtitle.n0 { top: 4%; left: 3%; }
+.shot .subtitle.n1 { bottom: 6%; right: 3%; }
+
+.shot.scene-title .subtitle {
+  top: auto;
+  left: 50%;
+  bottom: 14%;
+  max-width: 80%;
+  background: #fff;
+  white-space: nowrap;
+  translate: -50% 0;
+}
+
+.shot .bubble {
+  max-width: 36%;
+  padding: 8px 14px 10px;
+  border: 3px solid #111;
+  border-radius: 22px;
+  background: #fff;
+  font: 900 clamp(14px, 2.4vw, 26px)/1.15 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+  translate: -50% 0;
+}
+
+.shot .bubble .who {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.55em;
+  letter-spacing: 1px;
+  color: #c0392b;
+  text-transform: uppercase;
+}
+
+.shot .bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  border: 10px solid transparent;
+  border-top: 14px solid #111;
+}
+
+.shot .bubble.tail-left::after { left: 22px; }
+.shot .bubble.tail-right::after { right: 22px; }
+
+.shot .fx {
+  font: 900 clamp(34px, 8vw, 90px)/1 'Arial Black', Impact, sans-serif;
+  color: #ffcf33;
+  -webkit-text-stroke: 3px #111;
+  text-shadow: 5px 5px 0 #111;
+  translate: -50% -50%;
+  rotate: -12deg;
+}
+
+.shot.scene-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 45%, #c0392b, #3a0f12 75%);
+}
+
+.shot.scene-title .shot-cam { display: flex; align-items: center; justify-content: center; }
+
+.intro-title {
+  display: flex;
+  gap: 0.3em;
+  font: 900 clamp(36px, 9vw, 120px)/1 'Arial Black', Impact, sans-serif;
+  color: #ffcf33;
+  -webkit-text-stroke: 4px #111;
+  text-shadow: 7px 7px 0 #111;
+}
+
+.intro-title span { animation: title-slam 0.4s cubic-bezier(0.2, 1.6, 0.4, 1) both; }
+.intro-title span:last-child { animation-delay: 0.18s; color: #fff; }
+
+.intro-skip {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  z-index: 1;
+  padding: 6px 14px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font: 800 13px/1 'Trebuchet MS', sans-serif;
+  cursor: pointer;
+}
+
+.intro-skip:hover { background: #fff; color: #000; }
+
+.intro-hint {
+  position: absolute;
+  bottom: 14px;
+  right: 18px;
+  color: #fff;
+  font: 800 12px/1 'Trebuchet MS', sans-serif;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+
+/* Endings hold their last frame: dim it, clear the words, and put the results card on top. */
+.intro.held { cursor: default; }
+/* A plain dark layer instead of a CSS filter: a filter would repaint the whole frame every time
+   the stars or confetti move. */
+.intro.held .shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  animation: intro-in 0.4s ease-out;
+}
+.intro.held .shot .subtitle,
+.intro.held .shot .bubble,
+.intro.held .shot .fx { opacity: 0 !important; transition: opacity 0.3s; }
+/* The big YOU WIN! title would peek out around the results card: let the card have the frame. */
+.intro.held .intro-title { opacity: 0; transition: opacity 0.3s; }
+
+.film .panel.end-card {
+  z-index: 2;
+  border: 4px solid #111;
+  border-radius: 10px;
+  background: #fffaf0;
+  box-shadow: 8px 8px 0 #111;
+  animation: end-card-in 0.4s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+
+.film .panel.end-card h1 {
+  font: 900 clamp(26px, 4.5vw, 44px)/1 'Arial Black', Impact, sans-serif;
+  color: #ffcf33;
+  -webkit-text-stroke: 2px #111;
+  text-shadow: 4px 4px 0 #111;
+  text-transform: uppercase;
+}
+
+.film .panel.end-card p { font-family: 'Comic Sans MS', 'Trebuchet MS', sans-serif; }
+
+.film .panel.end-card button {
+  border: 3px solid #111;
+  box-shadow: 4px 4px 0 #111;
+  font: 900 18px/1 'Arial Black', Impact, sans-serif;
+  text-transform: uppercase;
+}
+
+.film .panel.end-card button:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #111; }
+
+@keyframes end-card-in {
+  from { transform: translate(-50%, -50%) scale(0.3) rotate(-6deg); opacity: 0; }
+  to { transform: translate(-50%, -50%); opacity: 1; }
+}
+
+/* The room race's standings card (ui/raceResults.ts) gets the same comic look on the ending film. */
+.intro .film .card.end-card {
+  padding: 18px 20px;
+  border: 4px solid #111;
+  border-radius: 10px;
+  background: #fffaf0;
+  box-shadow: 8px 8px 0 #111;
+  animation: end-card-in 0.4s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+
+.intro .film .card.end-card .verdict {
+  margin: 0 0 4px;
+  font: 900 clamp(24px, 4vw, 36px)/1.05 'Arial Black', Impact, sans-serif;
+  color: #ffcf33;
+  -webkit-text-stroke: 2px #111;
+  text-shadow: 4px 4px 0 #111;
+  text-transform: uppercase;
+}
+
+.intro .film .card.end-card .my-score {
+  margin: 6px 0 0;
+  font: 900 40px/1 'Arial Black', Impact, sans-serif;
+  color: #f39c32;
+  -webkit-text-stroke: 1.5px #111;
+}
+
+.intro .film .card.end-card .my-place,
+.intro .film .card.end-card .standings { font-family: 'Comic Sans MS', 'Trebuchet MS', sans-serif; }
+
+.intro .film .card.end-card button.big {
+  display: block;
+  width: 100%;
+  margin: 14px 0 0;
+  padding: 14px 18px;
+  border: 3px solid #111;
+  border-radius: 12px;
+  background: #ffcf33;
+  box-shadow: 5px 5px 0 #111;
+  color: #111;
+  font: 900 19px/1 'Arial Black', Impact, sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.intro .film .card.end-card button.big:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #111; }
+.intro .film .card.end-card button.big:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 #111; }
+
+/* A thin video-style progress bar along the bottom. */
+.intro-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.intro-progress span {
+  display: block;
+  height: 100%;
+  background: #f39c32;
+  transform-origin: left;
+}
+
+/* Idle loops inside the art (the a- groups are driven from intro.ts). */
+.intro .ripple { animation: drift 1.6s linear infinite; }
+.intro .sway { animation: sway 2s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
+.intro .air { animation: rise 1.8s linear infinite; }
+.intro .speed { animation: speed 0.3s linear infinite; }
+.intro .smoke { animation: smoke 1.6s ease-out infinite; }
+.intro .smoke.s2 { animation-delay: 0.8s; }
+.intro .ember { animation: blink 1s infinite; }
+.intro .sweat { animation: drip 0.5s ease-in infinite; }
+
+@keyframes intro-in { from { opacity: 0; } }
+@keyframes intro-out { to { opacity: 0; } }
+@keyframes title-slam { from { transform: scale(3); opacity: 0; } }
+@keyframes blink { 50% { opacity: 0.25; } }
+@keyframes drift { to { transform: translateX(-100px); } }
+@keyframes sway { 50% { transform: skewX(8deg); } }
+@keyframes rise { to { transform: translateY(-210px); opacity: 0; } }
+@keyframes speed { from { transform: translateX(40px); opacity: 0.8; } to { transform: translateX(-40px); opacity: 0; } }
+@keyframes smoke { from { transform: translate(0, 0) scale(0.6); opacity: 0.6; } to { transform: translate(-10px, -30px) scale(1.6); opacity: 0; } }
+@keyframes drip { to { transform: translateY(10px); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .intro *, .intro { animation-duration: 0.01s !important; animation-iteration-count: 1 !important; }
+}
+
+/* Boss intro: cinematic letterbox bars, the name card and the taunt */
+.letterbox::before,
+.letterbox::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: #07080b;
+  transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 5;
+}
+
+.letterbox::before {
+  top: 0;
+}
+
+.letterbox::after {
+  bottom: 0;
+}
+
+.letterbox.on::before,
+.letterbox.on::after {
+  height: 11vh;
+}
+
+.boss-card {
+  position: absolute;
+  left: 50%;
+  bottom: 14vh;
+  transform: translateX(-50%) scale(1.8);
+  opacity: 0;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 6;
+  transition: transform 0.35s cubic-bezier(0.2, 1.6, 0.4, 1), opacity 0.2s;
+}
+
+.boss-card.on {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+.boss-card small {
+  display: block;
+  font: italic bold 16px Georgia, 'Times New Roman', serif;
+  letter-spacing: 6px;
+  color: #e9d8a6;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.boss-card strong {
+  display: block;
+  font: 900 clamp(40px, 9vw, 72px) Georgia, 'Times New Roman', serif;
+  letter-spacing: 4px;
+  color: #ffd66b;
+  -webkit-text-stroke: 2px #3a2400;
+  text-shadow: 0 4px 0 #8a5a00, 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.speech {
+  position: absolute;
+  left: 50%;
+  top: 15vh;
+  transform: translateX(-50%) scale(0.6);
+  opacity: 0;
+  max-width: calc(100vw - 32px);
+  padding: 12px 20px;
+  border-radius: 18px;
+  background: #fffaf0;
+  color: #1d2433;
+  font: bold clamp(18px, 4.5vw, 26px) 'Trebuchet MS', Arial, sans-serif;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  z-index: 6;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
+}
+
+.speech::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  border: 8px solid transparent;
+  border-top: 14px solid #fffaf0;
+  transform: translateX(-50%);
+}
+
+.speech.on {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* On a phone the film is a short 16:9 strip, so the end card would scroll inside it and hide its
+   button. Pin the card to the screen instead, and let only the standings list scroll. */
+.intro .film .end-card {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 24px);
+  overflow: hidden;
+}
+
+.intro .film .end-card > * { flex: none; }
+
+.intro .film .card.end-card .standings,
+.intro .film .card.end-card .scoreboard,
+.intro .film .card.end-card ul,
+.intro .film .card.end-card ol {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+@media (max-height: 520px), (max-width: 520px) {
+  .intro .film .card.end-card { padding: 12px 14px; }
+  .intro .film .card.end-card .verdict { font-size: 22px; }
+  .intro .film .card.end-card .my-score { font-size: 30px; }
+  .intro .film .card.end-card button.big { margin-top: 10px; padding: 12px 14px; font-size: 16px; }
+}
+
+/* A phone held upright: the film fills the screen. The picture is the middle two-thirds of the 16:9
+   art, full width and half as big again, centred on each shot's characters (Shot.focus, set by
+   film.ts as --focus); every line of the story stacks underneath it in big type (film.ts puts them
+   in .shot-talk), so the words never cover the characters. The whole thing sits mid-screen. */
+@media (max-aspect-ratio: 4/5) {
+  .film {
+    width: 100vw;
+    height: 100dvh;
+    aspect-ratio: auto;
+    /* The full art's width: 1.5x the screen, less on short screens so the words still fit below. */
+    --art-w: max(100vw, min(150vw, calc((100dvh - 290px) * 16 / 9)));
+    --pic-h: calc(var(--art-w) * 9 / 16);
+    --pic-top: max(64px, calc((100dvh - var(--pic-h) - 240px) / 2));
+  }
+
+  .shot-stage {
+    inset: auto 0;
+    top: var(--pic-top);
+    height: var(--pic-h);
+  }
+
+  .shot-cam {
+    inset: 0 auto;
+    width: var(--art-w);
+    left: clamp(calc(100vw - var(--art-w)), calc(50vw - var(--focus, 0.5) * var(--art-w)), 0px);
+  }
+
+  .shot-talk {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    top: calc(var(--pic-top) + var(--pic-h) + 18px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .shot-talk .subtitle,
+  .shot-talk .bubble {
+    position: static;
+    translate: none;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .shot-talk .subtitle { font-size: 20px; }
+  .shot-talk .bubble { font-size: 22px; }
+
+  /* The speech bubble's tail points up at the picture. */
+  .shot-talk .bubble::after {
+    bottom: auto;
+    top: -18px;
+    left: 50%;
+    right: auto;
+    border-top-color: transparent;
+    border-bottom: 14px solid #111;
+    translate: -50% 0;
+  }
+
+  .shot.scene-title .shot-talk .subtitle { white-space: normal; translate: none; }
+  .intro-title { font-size: 15vw; -webkit-text-stroke-width: 3px; }
+}

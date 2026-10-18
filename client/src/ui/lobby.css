@@ -1,0 +1,1134 @@
+/* Title screen, pond lobby, race results and touch controls (Tejas). Phone first, then wider screens. */
+
+.lobby-screen {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  overflow: hidden;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lobby-screen button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+}
+
+.lobby-screen button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.lobby-screen input {
+  font-family: inherit;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 14px;
+  border: 3px solid #e3d6b8;
+  border-radius: 14px;
+  background: #fffdf6;
+  font-size: 17px;
+  color: var(--ink);
+  outline: none;
+}
+
+.lobby-screen input:focus {
+  border-color: var(--accent);
+}
+
+.lobby-error {
+  color: var(--bad);
+  font-size: 14px;
+  font-weight: bold;
+  margin: 6px 0 0;
+  text-align: center;
+}
+
+.lobby-error:empty {
+  display: none;
+}
+
+.lobby-note {
+  font-size: 12px;
+  color: #7a6d55;
+  margin: 10px 0 0;
+  text-align: center;
+}
+
+/* Chunky game buttons with a pressed-down feel. */
+.lobby-screen button.big {
+  display: block;
+  width: 100%;
+  margin: 10px 0 0;
+  padding: 15px 18px;
+  border-radius: 16px;
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 0 var(--btn-edge), 0 10px 18px rgba(0, 0, 0, 0.2);
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.lobby-screen button.big:active:not(:disabled) {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 var(--btn-edge), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button.big.play {
+  background: linear-gradient(#46c7ff, #1e9be0);
+  --btn-edge: #1272a8;
+}
+
+button.big.host,
+button.big.start {
+  background: linear-gradient(#ffb547, #f3892a);
+  --btn-edge: #b85f12;
+}
+
+button.big.start {
+  animation: start-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes start-pulse {
+  50% {
+    filter: brightness(1.12);
+  }
+}
+
+/* --- Title screen --------------------------------------------------------------------------- */
+
+.title-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #7ec8f0;
+}
+
+.title-screen > div:first-child {
+  position: absolute;
+  inset: 0;
+}
+
+.title-bg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.title-logo {
+  position: relative;
+  margin-top: max(5vh, env(safe-area-inset-top));
+  text-align: center;
+}
+
+.title-logo h1 {
+  margin: 0;
+  display: flex;
+  gap: 0.35em;
+  justify-content: center;
+  font-size: clamp(54px, 15vw, 116px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+.logo-word {
+  display: inline-flex;
+}
+
+.logo-letter {
+  display: inline-block;
+  color: #ffd23f;
+  -webkit-text-stroke: 3px #5b3a1a;
+  paint-order: stroke fill;
+  text-shadow: 0 5px 0 #5b3a1a, 0 10px 20px rgba(0, 0, 0, 0.25);
+  animation: letter-drop 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) both, letter-hop 3.2s ease-in-out infinite;
+}
+
+.logo-word + .logo-word .logo-letter {
+  color: #fff;
+}
+
+@keyframes letter-drop {
+  from {
+    transform: translateY(-120%) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes letter-hop {
+  0%,
+  8%,
+  100% {
+    transform: none;
+  }
+  4% {
+    transform: translateY(-14%) rotate(-4deg);
+  }
+}
+
+.tagline {
+  margin: 10px 0 0;
+  font-size: clamp(13px, 3.6vw, 18px);
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  animation: fade-up 0.6s 0.7s both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.title-menu {
+  position: relative;
+  margin-top: auto;
+  width: min(400px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 18px 18px 20px;
+  border-radius: 22px;
+  background: rgba(255, 250, 238, 0.94);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  animation: fade-up 0.6s 0.9s both;
+}
+
+.join-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.join-row .code-input {
+  flex: 1;
+  min-width: 0;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 6px;
+  font-weight: 900;
+}
+
+.join-row .join {
+  padding: 0 22px;
+  border-radius: 14px;
+  background: #3a4256;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.title-footer {
+  position: relative;
+  margin: 12px 0 max(14px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.title-footer .volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(40, 26, 12, 0.55);
+  font-size: 15px;
+}
+
+.title-footer .volume input {
+  width: 140px;
+  padding: 0;
+  border: 0;
+  accent-color: var(--accent);
+}
+
+.controls-hint {
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(40, 26, 12, 0.55);
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.join-screen .invite-line {
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+  color: #7a6d55;
+}
+
+.join-screen .invite-code {
+  margin: 2px 0 12px;
+  text-align: center;
+  font-size: 46px;
+  font-weight: 900;
+  letter-spacing: 12px;
+  color: var(--accent);
+}
+
+.lobby-screen button.link {
+  display: block;
+  margin: 12px auto 0;
+  background: none;
+  color: #7a6d55;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+/* Wide screens (laptops, projectors): the menu sits to the right so it doesn't cover Bill, who runs in the middle. */
+@media (min-aspect-ratio: 5/4) {
+  .title-menu {
+    align-self: flex-end;
+    margin-right: max(32px, 7vw);
+  }
+}
+
+/* Tall screens (phones): the scene becomes a band between the logo and the menu, so Bill isn't
+   blown up behind the buttons. Sky above and mud below line up with the band's own sky and road. */
+@media (max-aspect-ratio: 1/1) {
+  .title-screen {
+    background: linear-gradient(#7ec8f0 0 50%, #7d5634 50% 100%);
+  }
+  .title-screen > div:first-child {
+    position: relative;
+    inset: auto;
+    order: 1;
+    flex: 1 1 0;
+    min-height: 150px;
+    width: 100%;
+  }
+  .title-logo {
+    order: 0;
+    margin-top: 52px; /* clear of the sound button in the top-right corner */
+  }
+  .title-menu {
+    order: 2;
+    margin-top: 0;
+    padding: 14px 14px 16px;
+  }
+  .title-footer {
+    order: 3;
+  }
+  .lobby-screen button.big {
+    padding: 13px 16px;
+    font-size: 18px;
+  }
+}
+
+/* Title scene loops (titleScene.ts). */
+.t-clouds {
+  animation: scroll 60s linear infinite;
+}
+.t-hills {
+  animation: scroll 30s linear infinite;
+}
+.t-forest {
+  animation: scroll 12s linear infinite;
+}
+.t-road {
+  animation: scroll 2.2s linear infinite;
+}
+@keyframes scroll {
+  to {
+    transform: translateX(-400px);
+  }
+}
+.t-bill-bob {
+  animation: run-bob 0.32s ease-in-out infinite alternate;
+}
+.t-dog {
+  animation: dog-chase 5s ease-in-out infinite;
+}
+.t-dog-bob {
+  animation: run-bob 0.26s ease-in-out infinite alternate;
+}
+@keyframes run-bob {
+  to {
+    transform: translateY(-5px);
+  }
+}
+@keyframes dog-chase {
+  50% {
+    transform: translateX(34px);
+  }
+}
+.t-don {
+  animation: don-fly 9s linear infinite;
+}
+.t-don-bob {
+  animation: run-bob 0.5s ease-in-out infinite alternate;
+}
+@keyframes don-fly {
+  from {
+    transform: translate(460px, 70px);
+  }
+  to {
+    transform: translate(-60px, 40px);
+  }
+}
+.t-coin {
+  animation: coin-pass 2.2s linear infinite;
+}
+@keyframes coin-pass {
+  from {
+    transform: translateX(120px);
+  }
+  to {
+    transform: translateX(-280px);
+  }
+}
+.t-dust circle {
+  animation: dust 0.5s ease-out infinite;
+}
+@keyframes dust {
+  to {
+    transform: translate(-16px, -6px);
+    opacity: 0;
+  }
+}
+.t-sun {
+  animation: sun-pulse 4s ease-in-out infinite;
+  transform-origin: 330px 46px;
+}
+@keyframes sun-pulse {
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* --- Pond lobby ----------------------------------------------------------------------------- */
+
+.pond-lobby {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto minmax(220px, 40vh) auto auto;
+  overflow-y: auto;
+  background:
+    radial-gradient(ellipse at 50% 30%, #b7e98f 0%, #7cc35f 55%, #4f9a45 100%);
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+
+.pond-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 64px 6px 16px; /* room on the right for the sound button */
+}
+
+.room-tag {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 14px;
+  border-radius: 14px;
+  background: rgba(255, 250, 238, 0.95);
+  box-shadow: 0 4px 0 #3e7a36;
+  line-height: 1;
+}
+
+.room-tag small {
+  font-size: 10px;
+  font-weight: bold;
+  color: #7a6d55;
+  letter-spacing: 2px;
+}
+
+.room-tag strong {
+  font-size: 30px;
+  letter-spacing: 6px;
+  color: var(--accent);
+}
+
+.pond-header .count {
+  flex: 1;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+}
+
+.pond-header .leave {
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-weight: bold;
+}
+
+.pond-main {
+  position: relative;
+  min-height: 0;
+  padding: 4px 16px;
+}
+
+.pond {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.pond-water {
+  position: absolute;
+  inset: 4% 2%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 45% 35%, #7fd6f5 0%, #3aa4d6 55%, #1f78ad 100%);
+  box-shadow:
+    0 0 0 8px #d9c08c,
+    0 0 0 14px #a88a55,
+    inset 0 10px 30px rgba(255, 255, 255, 0.35),
+    inset 0 -18px 30px rgba(0, 40, 80, 0.35);
+}
+
+.pond-ripple {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: 30%;
+  height: 22%;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.2);
+  animation: ripple 4s ease-out infinite;
+}
+
+@keyframes ripple {
+  to {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+}
+
+.lily {
+  position: absolute;
+  width: 46px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #7fcf6b, #3f9a45);
+  clip-path: polygon(0 0, 46% 0, 50% 50%, 58% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.reeds {
+  position: absolute;
+  bottom: 6%;
+  width: 46px;
+  height: 70px;
+  background:
+    linear-gradient(80deg, transparent 44%, #3d7d36 45%, #3d7d36 52%, transparent 53%),
+    linear-gradient(100deg, transparent 30%, #2f6a2b 31%, #2f6a2b 37%, transparent 38%),
+    linear-gradient(92deg, transparent 62%, #4a8f3f 63%, #4a8f3f 69%, transparent 70%);
+  z-index: 200;
+  transform-origin: bottom;
+  animation: sway 3s ease-in-out infinite alternate;
+}
+
+.reeds.left {
+  left: 0;
+}
+
+.reeds.right {
+  right: 0;
+  animation-delay: -1.5s;
+}
+
+@keyframes sway {
+  to {
+    transform: rotate(4deg);
+  }
+}
+
+/* A floating Bill. The svg is cropped at the waterline; a ring sits where he meets the water. */
+.duck {
+  position: absolute;
+  width: clamp(54px, 13vw, 92px);
+  transform: translate(-50%, -88%);
+  transition: left 0.9s ease-in-out, top 0.9s ease-in-out, opacity 0.5s;
+}
+
+.duck-bob {
+  animation: duck-bob 2.4s ease-in-out infinite;
+  animation-delay: var(--bob-delay, 0s);
+}
+
+.duck-bob svg {
+  display: block;
+  width: 100%;
+}
+
+.duck::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -4%;
+  height: 16%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.15);
+  animation: duck-ring 2.4s ease-in-out infinite;
+  animation-delay: var(--bob-delay, 0s);
+}
+
+@keyframes duck-bob {
+  50% {
+    transform: translateY(6%) rotate(3deg);
+  }
+}
+
+@keyframes duck-ring {
+  50% {
+    transform: scaleX(1.12);
+  }
+}
+
+.duck-tag {
+  position: absolute;
+  left: 50%;
+  top: -16px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(20, 30, 45, 0.7);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.duck.me .duck-tag {
+  background: var(--accent);
+}
+
+.duck.me {
+  width: clamp(62px, 15vw, 104px);
+}
+
+.duck.offline {
+  opacity: 0.45;
+  filter: grayscale(1);
+}
+
+.duck.splash .duck-bob {
+  animation: duck-drop 0.8s cubic-bezier(0.4, 1.5, 0.6, 1) both;
+}
+
+.duck.splash::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 160%;
+  height: 40%;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  transform: translateX(-50%) scale(0.3);
+  animation: splash-ring 0.8s 0.25s ease-out both;
+}
+
+@keyframes duck-drop {
+  from {
+    transform: translateY(-260%) rotate(-25deg);
+  }
+}
+
+@keyframes splash-ring {
+  from {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) scale(1.3);
+    opacity: 0;
+  }
+}
+
+.duck.leaving {
+  opacity: 0;
+  transform: translate(-50%, -40%) scale(0.6);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.pond-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 16px 0;
+}
+
+.card {
+  border-radius: 18px;
+  padding: 14px 16px;
+  background: rgba(255, 250, 238, 0.96);
+  box-shadow: 0 5px 0 rgba(40, 80, 30, 0.6), 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.board-note {
+  margin: 2px 0 8px;
+  font-size: 13px;
+  color: #7a6d55;
+}
+
+.invite {
+  text-align: center;
+}
+
+.invite.folded {
+  display: none;
+}
+
+.invite .qr {
+  width: min(220px, 60vw);
+  margin: 10px auto 6px;
+  padding: 8px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.invite .qr svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.invite .link-text {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: #7a6d55;
+  word-break: break-all;
+}
+
+.invite .copy,
+.unfold {
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: #3a4256;
+  color: #fff;
+  font-weight: bold;
+}
+
+.unfold {
+  align-self: center;
+}
+
+.pond-action {
+  position: sticky;
+  bottom: 0;
+  padding: 14px 16px max(14px, env(safe-area-inset-bottom));
+  background: linear-gradient(transparent, rgba(40, 80, 30, 0.55) 30%);
+  text-align: center;
+}
+
+.pond-action .big {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.pond-action .waiting {
+  margin: 0;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 250, 238, 0.92);
+  font-weight: bold;
+  animation: start-pulse 1.6s ease-in-out infinite;
+}
+
+/* Big-screen mode switch (host only), in the comic style of the story and endings (Vansh). */
+.screen-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 8px 12px 8px 14px;
+  border: 3px solid #111;
+  border-radius: 12px;
+  background: #fffaf0;
+  box-shadow: 4px 4px 0 #111;
+  color: #111;
+  font: 900 14px/1 'Arial Black', Impact, sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.screen-toggle:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #111; }
+.screen-toggle:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #111; }
+
+.screen-toggle .switch {
+  position: relative;
+  width: 46px;
+  height: 24px;
+  border: 3px solid #111;
+  border-radius: 999px;
+  background: #cfc6b4;
+  transition: background 0.2s;
+}
+
+.screen-toggle .knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #111;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.screen-toggle .state {
+  min-width: 2.4em;
+  text-align: left;
+  color: #8a7f6a;
+}
+
+.screen-toggle.on .switch { background: #ffcf33; }
+.screen-toggle.on .knob { transform: translateX(22px); }
+.screen-toggle.on .state { color: #111; }
+
+.action-hint {
+  margin: 8px 0 0;
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Wide screens (the host's laptop): pond on the left, leaderboard and QR on the right. */
+@media (min-width: 820px) {
+  .pond-lobby {
+    grid-template-columns: 1fr 340px;
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+  }
+  .pond-header {
+    grid-column: 1 / -1;
+  }
+  .pond-main {
+    grid-row: 2;
+  }
+  .pond-side {
+    grid-row: 2 / 4;
+    grid-column: 2;
+    overflow-y: auto;
+    padding: 4px 16px 16px 0;
+  }
+  .pond-action {
+    grid-row: 3;
+    grid-column: 1;
+    background: none;
+  }
+  .duck {
+    width: clamp(64px, 7vw, 110px);
+  }
+  .duck.me {
+    width: clamp(72px, 8vw, 122px);
+  }
+}
+
+/* --- Leaderboard rows ----------------------------------------------------------------------- */
+
+.standings {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.standing {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px;
+  border-bottom: 1px solid #ece2cc;
+}
+
+.standing:last-child {
+  border-bottom: 0;
+}
+
+.standing .place {
+  width: 28px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
+  color: #7a6d55;
+}
+
+.standing .who {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.standing .name {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.standing .chip {
+  font-size: 12px;
+  color: #7a6d55;
+}
+
+.standing .points {
+  font-size: 18px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.standing.me {
+  background: #fff1d6;
+  border-radius: 10px;
+}
+
+.standing.offline {
+  opacity: 0.5;
+}
+
+.standing.running .chip {
+  color: #1e8bc3;
+}
+
+/* --- End-of-race card ----------------------------------------------------------------------- */
+
+.race-results {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(10, 20, 35, 0.55);
+  pointer-events: auto;
+  animation: fade-in 0.4s both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.race-results .card {
+  width: min(420px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  text-align: center;
+  animation: pop-in 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+}
+
+.race-results .verdict {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.race-results .my-score {
+  margin: 4px 0 0;
+  font-size: 44px;
+  font-weight: 900;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.race-results .my-place {
+  margin: 0 0 10px;
+  font-weight: bold;
+  color: #7a6d55;
+}
+
+.race-results .standings {
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.race-results button.big {
+  font-family: inherit;
+  border: 0;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin: 10px 0 0;
+  padding: 15px 18px;
+  border-radius: 16px;
+  font-size: 19px;
+  font-weight: 900;
+  color: #fff;
+  background: linear-gradient(#46c7ff, #1e9be0);
+  box-shadow: 0 6px 0 #1272a8;
+}
+
+/* --- Touch controls: the two halves of the screen are the two buttons (touchControls.ts) --------- */
+
+.touch-controls {
+  position: absolute;
+  /* Below the HUD row, so the sound button and the scoreboard stay tappable. */
+  top: calc(64px + env(safe-area-inset-top));
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  pointer-events: none;
+}
+
+.touch-zone {
+  position: relative;
+  flex: 1;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.08s;
+}
+
+.touch-zone.down {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* The marker in each bottom corner says what a tap does right now. */
+.touch-marker {
+  position: absolute;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  background: rgba(20, 30, 45, 0.35);
+  color: #fff;
+  font-size: 34px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+  transition: transform 0.06s, background 0.15s, opacity 0.2s;
+}
+
+.touch-zone.left .touch-marker {
+  left: 18px;
+}
+
+.touch-zone.right .touch-marker {
+  right: 18px;
+}
+
+.touch-zone.down .touch-marker {
+  transform: scale(0.88);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.touch-marker svg {
+  width: 72%;
+  height: 72%;
+}
+
+/* FIRE: both halves fire, so both markers become a red scope. */
+.touch-zone[data-look='fire'] .touch-marker {
+  width: 100px;
+  height: 100px;
+  background: rgba(200, 30, 40, 0.5);
+  animation: fire-glow 1s ease-in-out infinite;
+}
+
+/* An instruction card is up: either half continues. */
+.touch-zone[data-look='next'] .touch-marker {
+  font-size: 20px;
+  background: rgba(30, 150, 90, 0.75);
+  animation: fire-glow 1.2s ease-in-out infinite;
+}
+
+.touch-zone[data-look='idle'] .touch-marker {
+  opacity: 0.35;
+}
+
+@keyframes fire-glow {
+  50% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+}
+
+body.touch #ui > .keys {
+  display: none;
+}
+
+/* In a room race the standings card lands on the ending film's last frame (endings.ts), like the solo card. */
+.film .card.end-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  width: min(420px, 92%);
+  max-height: 92%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  animation: none;
+}
+
+/* Small phones (e.g. 360x640): a shorter scene so the menu and the sound slider fit without scrolling. */
+@media (max-aspect-ratio: 1/1) and (max-height: 700px) {
+  .title-screen > div:first-child {
+    min-height: 100px;
+  }
+}
+
+/* A phone turned sideways (wide but short): logo on the left, a compact menu on the right, so the
+   whole title screen fits without scrolling. */
+@media (min-aspect-ratio: 1/1) and (max-height: 520px) {
+  .title-screen {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    gap: 6px 16px;
+    padding: 8px max(16px, env(safe-area-inset-right)) 8px max(16px, env(safe-area-inset-left));
+  }
+  .title-logo {
+    margin: 0;
+    flex: 1 1 0;
+  }
+  .title-logo h1 {
+    font-size: clamp(40px, 12vh, 64px);
+  }
+  .title-menu {
+    margin: 0 44px 0 0; /* clear of the sound button in the top-right corner */
+    align-self: center;
+    width: min(340px, 46vw);
+    padding: 10px 12px 12px;
+  }
+  .title-menu input {
+    margin: 4px 0 8px;
+    padding: 8px 10px;
+  }
+  .lobby-screen .title-menu button.big {
+    margin-top: 6px;
+    padding: 9px 12px;
+    font-size: 15px;
+  }
+  .title-footer {
+    flex-basis: 100%;
+    margin: 0;
+  }
+}

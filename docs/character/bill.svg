@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="1000" viewBox="220 64 270 500" role="img">
+  <title>Bill the duck</title>
+  <desc>Bill, a scruffy duck in a crumpled brown coat, wonky flat cap, loose red tie, untied mismatched boots, holding a pricey latte while cash falls out of his pockets.</desc>
+  <ellipse cx="345" cy="544" rx="125" ry="8" fill="#000000" opacity="0.12"/>
+  <g id="tail">
+    <path d="M418 450 Q448 438 460 452 Q446 456 452 468 Q436 462 424 472 Z" fill="#fdfaf2" stroke="#3b3b3b" stroke-width="1.5"/>
+  </g>
+  <g id="legs">
+    <line x1="318" y1="474" x2="314" y2="504" stroke="#f39c32" stroke-width="7" stroke-linecap="round"/>
+    <line x1="362" y1="476" x2="368" y2="504" stroke="#f39c32" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <g id="boots">
+    <rect x="298" y="498" width="30" height="24" rx="3" fill="#5a3b22"/>
+    <ellipse cx="302" cy="526" rx="28" ry="9" fill="#5a3b22"/>
+    <rect x="354" y="498" width="30" height="24" rx="3" fill="#2f2f2f"/>
+    <ellipse cx="380" cy="527" rx="30" ry="9" fill="#2f2f2f"/>
+    <circle cx="408" cy="525" r="5" fill="#f39c32"/>
+    <path d="M312 502 Q300 514 288 510 Q278 506 272 520" stroke="#e8e0c8" stroke-width="2" fill="none"/>
+    <path d="M370 502 Q384 514 396 510 Q406 506 414 516" stroke="#e8e0c8" stroke-width="2" fill="none"/>
+  </g>
+  <g id="neck">
+    <path d="M322 178 Q318 225 316 268 L366 268 Q362 225 358 178 Z" fill="#fdfaf2" stroke="#3b3b3b" stroke-width="2"/>
+  </g>
+  <g id="coat">
+    <path d="M300 262 Q340 250 382 262 Q420 290 428 470 Q340 486 252 470 Q262 290 300 262 Z" fill="#7a5c3e" stroke="#4a3624" stroke-width="2"/>
+    <path d="M318 262 L342 340 L366 262 Z" fill="#ffffff"/>
+    <path d="M316 262 L334 332 L296 296 Q300 270 316 262 Z" fill="#6a4e33" stroke="#4a3624" stroke-width="1.5"/>
+    <path d="M366 262 L350 332 L394 286 Q386 266 366 262 Z" fill="#6a4e33" stroke="#4a3624" stroke-width="1.5"/>
+    <circle cx="350" cy="384" r="5" fill="#c9a227"/>
+    <circle cx="334" cy="414" r="5" fill="#c9a227"/>
+    <circle cx="352" cy="444" r="5" fill="#c9a227"/>
+    <rect x="392" y="428" width="22" height="18" rx="2" fill="#a07a4f" stroke="#4a3624" stroke-width="1" stroke-dasharray="3 2"/>
+    <path d="M300 470 Q310 490 330 478 Q338 492 354 480 L352 468 Z" fill="#ffffff" stroke="#9a9a9a" stroke-width="1"/>
+  </g>
+  <g id="tie">
+    <path d="M336 272 L350 272 L348 288 L338 288 Z" fill="#c0392b" stroke="#7d2219" stroke-width="1.5"/>
+    <path d="M338 288 Q330 330 342 372 L354 378 Q362 338 348 288 Z" fill="#c0392b" stroke="#7d2219" stroke-width="1.5"/>
+    <circle cx="341" cy="306" r="2.5" fill="#f2c14e"/>
+    <circle cx="347" cy="328" r="2.5" fill="#f2c14e"/>
+    <circle cx="345" cy="352" r="2.5" fill="#f2c14e"/>
+  </g>
+  <g id="money">
+    <rect x="276" y="374" width="26" height="14" fill="#7fb77e" stroke="#3f7a3e" stroke-width="1" transform="rotate(-22 289 381)"/>
+    <rect x="292" y="372" width="26" height="14" fill="#7fb77e" stroke="#3f7a3e" stroke-width="1" transform="rotate(14 305 379)"/>
+    <rect x="266" y="390" width="48" height="9" rx="2" fill="#6a4e33" stroke="#4a3624" stroke-width="1.5"/>
+    <rect x="370" y="406" width="46" height="9" rx="2" fill="#6a4e33" stroke="#4a3624" stroke-width="1.5"/>
+    <path d="M402 414 Q432 450 414 490 Q398 520 442 538 L454 532 Q412 516 426 490 Q446 450 412 414 Z" fill="#ffffff" stroke="#9a9a9a" stroke-width="1"/>
+    <circle cx="258" cy="438" r="6" fill="#e3b505" stroke="#a37f00" stroke-width="1"/>
+    <circle cx="248" cy="472" r="5" fill="#e3b505" stroke="#a37f00" stroke-width="1"/>
+    <circle cx="262" cy="504" r="6" fill="#e3b505" stroke="#a37f00" stroke-width="1"/>
+    <circle cx="238" cy="534" r="5" fill="#e3b505" stroke="#a37f00" stroke-width="1"/>
+  </g>
+  <g id="wings">
+    <path d="M300 268 Q262 300 258 384 L278 388 Q282 322 312 296 Z" fill="#7a5c3e" stroke="#4a3624" stroke-width="2"/>
+    <path d="M380 268 Q430 290 452 332 L436 344 Q412 310 378 300 Z" fill="#7a5c3e" stroke="#4a3624" stroke-width="2"/>
+    <path d="M448 290 L478 290 L474 338 L452 338 Z" fill="#c8a27a" stroke="#6b4a2b" stroke-width="1.5"/>
+    <path d="M446 290 Q463 278 480 290 Z" fill="#ffffff" stroke="#6b4a2b" stroke-width="1.5"/>
+    <line x1="466" y1="283" x2="474" y2="256" stroke="#2e86de" stroke-width="3" stroke-linecap="round"/>
+    <path d="M440 334 Q452 346 462 336 Q472 342 468 328 Q460 320 448 326 Z" fill="#fdfaf2" stroke="#3b3b3b" stroke-width="1.5"/>
+  </g>
+  <g id="head">
+    <circle cx="340" cy="140" r="44" fill="#fdfaf2" stroke="#3b3b3b" stroke-width="2"/>
+    <path d="M296 118 Q298 80 345 78 Q388 80 394 110 Q370 102 340 104 Q314 106 296 118 Z" fill="#4b4f58" stroke="#2c2f35" stroke-width="1.5"/>
+    <path d="M286 120 Q294 106 322 108 L326 118 Q306 126 286 120 Z" fill="#3c4048" stroke="#2c2f35" stroke-width="1.5"/>
+    <circle cx="348" cy="80" r="4" fill="#2c2f35"/>
+    <circle cx="332" cy="96" r="9" fill="#1f1f1f"/>
+    <circle cx="358" cy="95" r="9" fill="#1f1f1f"/>
+    <line x1="341" y1="95" x2="349" y2="95" stroke="#1f1f1f" stroke-width="2"/>
+    <circle cx="322" cy="140" r="10" fill="#ffffff" stroke="#3b3b3b" stroke-width="1.5"/>
+    <circle cx="356" cy="140" r="10" fill="#ffffff" stroke="#3b3b3b" stroke-width="1.5"/>
+    <circle cx="322" cy="145" r="4" fill="#1a1a1a"/>
+    <circle cx="356" cy="145" r="4" fill="#1a1a1a"/>
+    <path d="M311 141 Q322 127 333 141 Z" fill="#e7dfcf" stroke="#3b3b3b" stroke-width="1.5"/>
+    <path d="M345 141 Q356 127 367 141 Z" fill="#e7dfcf" stroke="#3b3b3b" stroke-width="1.5"/>
+    <path d="M314 154 Q322 158 330 154" stroke="#b9ad98" stroke-width="1.5" fill="none"/>
+    <path d="M348 154 Q356 158 364 154" stroke="#b9ad98" stroke-width="1.5" fill="none"/>
+    <path d="M326 160 Q300 158 282 168 Q296 182 330 178 Q348 176 352 166 Q342 158 326 160 Z" fill="#f39c32" stroke="#b86a12" stroke-width="1.5"/>
+    <path d="M286 170 Q312 174 348 168" stroke="#b86a12" stroke-width="1.5" fill="none"/>
+    <line x1="350" y1="170" x2="374" y2="162" stroke="#d9b77a" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>

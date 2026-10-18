@@ -1,0 +1,99 @@
+.stage-instructions {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(720px, calc(100vw - 40px));
+  box-sizing: border-box;
+  padding: 28px 32px;
+  border: 3px solid #26344c;
+  border-radius: 22px;
+  background: #fff8df;
+  color: #17283f;
+  text-align: center;
+  box-shadow: 0 8px 0 #e7a83d, 0 20px 50px rgba(13, 25, 43, 0.3);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.stage-instructions h2,
+.stage-instructions .stage-instructions-goal {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 900;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.stage-instructions .stage-instructions-goal {
+  color: #a13d28;
+}
+
+.stage-instructions p {
+  margin: 10px 0;
+  font-size: clamp(15px, 1.7vw, 20px);
+  line-height: 1.45;
+}
+
+.stage-instructions .stage-instructions-controls {
+  margin: 20px 0 0;
+  padding: 12px 14px;
+  border: 2px solid #e7b956;
+  border-radius: 12px;
+  background: #ffedb7;
+  color: #17283f;
+}
+
+.stage-instructions-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #705024;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.stage-instructions-controls strong {
+  display: block;
+  font-size: clamp(18px, 2.4vw, 28px);
+}
+
+.stage-instructions .stage-instructions-continue {
+  margin: 18px 0 0;
+  color: #705024;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.stage-instructions-continue kbd {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 5px 12px;
+  border: 2px solid #26344c;
+  border-bottom-width: 4px;
+  border-radius: 7px;
+  background: #fff;
+  color: #17283f;
+  font: bold 16px 'Trebuchet MS', Arial, sans-serif;
+}
+
+@media (max-height: 600px) {
+  .stage-instructions {
+    padding: 18px 22px;
+  }
+
+  .stage-instructions h2,
+  .stage-instructions .stage-instructions-goal {
+    font-size: clamp(23px, 3.5vw, 32px);
+  }
+
+  .stage-instructions p {
+    margin: 6px 0;
+    font-size: 15px;
+  }
+
+  .stage-instructions .stage-instructions-controls {
+    margin-top: 12px;
+    padding: 8px 12px;
+  }
+}
