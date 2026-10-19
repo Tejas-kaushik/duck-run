@@ -138,7 +138,7 @@ docs/        design docs (start with DESIGN_CHANGES.md)
 
 ## AI usage
 
-**AI usage scale: 4.** We designed Duck Run ourselves: the characters, the story, every stage and the rules were drawn on paper before any code was written. We then used **Claude Code (Claude Opus 5.5)**, **Codex (GPT-6.1 Sol)** and **Codex (GPT-6 Astra)** to help build it, and play-tested it throughout.
+**We designed Duck Run ourselves: the characters, the story, every stage and the rules were drawn on paper before any code was written. We built it with AI-assisted development (Claude Code and Codex): we decided what to build, directed the AI, integrated everyone’s work into one game and play-tested it throughout on laptops and phones..
 
 Our presentation is in [docs/duck-run-judges-deck.pptx](docs/duck-run-judges-deck.pptx).
 
